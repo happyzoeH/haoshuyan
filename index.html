@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 <title>郝书言 · Hao Shuyan — UX Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1053,17 +1053,13 @@
     border: none;
   }
 
-  /* ── RESPONSIVE (移动端特殊处理) ── */
-  @media (max-width: 1400px) {
-    .hero-bg img {
-      object-fit: cover;
-    }
-  }
-
+  /* ── 🎯 手机端优化 ── */
   @media (max-width: 900px) {
+    /* 导航栏垂直排列 */
     nav { 
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      padding: 10px 16px;
     }
     .nav-center {
       position: static;
@@ -1072,58 +1068,186 @@
     .nav-links { 
       flex-wrap: wrap;
       justify-content: center;
+      gap: 6px;
     }
     
-    .hero { height: 100vh; }
+    /* 按钮和图标缩小 */
+    .nav-links a {
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+    .nav-link-en, .nav-link-cn {
+      font-size: 11px;
+    }
+    
+    /* Hero 保持比例 */
+    .hero { 
+      height: 70vh;
+      min-height: 500px;
+    }
     .hero-bg img {
       object-fit: cover;
     }
     
+    /* About Header 垂直排列 */
     .about-header {
       flex-direction: column;
       align-items: flex-start;
+      gap: 16px;
+    }
+    .about-resume-btn {
+      font-size: 12px;
+      padding: 8px 16px;
     }
     
+    /* Carousel 卡片宽度调整 */
     .carousel-card { 
-      flex: 0 0 clamp(260px, 70vw, 300px); 
+      flex: 0 0 clamp(240px, 75vw, 300px); 
+    }
+    .carousel-cover {
+      height: clamp(160px, 45vw, 200px);
     }
     
+    /* Featured 卡片按钮调整 */
+    .featured-btn {
+      font-size: 12px;
+      padding: 8px 16px;
+    }
+    .featured-btn svg {
+      width: 12px;
+      height: 12px;
+    }
+    
+    /* Carousel 按钮调整 */
+    .carousel-btn-link {
+      font-size: 11px;
+      padding: 6px 12px;
+    }
+    .carousel-btn-link svg {
+      width: 10px;
+      height: 10px;
+    }
+    
+    /* Footer 垂直排列 */
     footer { 
       flex-direction: column; 
-      text-align: center; 
+      text-align: center;
+      font-size: 10px;
     }
 
+    /* Resume Modal 头部调整 */
     .resume-modal-header {
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
+      padding: 10px 16px;
     }
     .resume-title {
       order: -1;
       width: 100%;
       text-align: center;
+      font-size: 13px;
+    }
+    .resume-close, .resume-download {
+      font-size: 11px;
+      padding: 6px 12px;
     }
 
-    .featured-btn {
-      width: 100%;
-      justify-content: center;
+    /* Detail 返回按钮 */
+    .detail-back-floating {
+      top: 10px;
+      left: 10px;
+      font-size: 11px;
+      padding: 6px 12px;
+    }
+    .detail-back-floating svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* 轮播控制按钮 */
+    .carousel-btn {
+      width: 32px;
+      height: 32px;
+      font-size: 12px;
+    }
+
+    /* 箭头图标 */
+    .featured-arrow {
+      width: 28px;
+      height: 28px;
+      font-size: 12px;
+      top: 12px;
+      right: 12px;
+    }
+    .carousel-arrow {
+      width: 24px;
+      height: 24px;
+      font-size: 11px;
+      top: 10px;
+      right: 10px;
+    }
+
+    /* 标签缩小 */
+    .featured-tag, .carousel-tag {
+      font-size: 8px;
+      padding: 2px 7px;
     }
   }
 
+  /* ── 小屏手机特殊优化 ── */
   @media (max-width: 600px) {
-    .hero-bg img {
-      object-fit: cover;
+    .hero { 
+      height: 60vh;
+      min-height: 400px;
     }
-
+    
     .carousel-card { 
-      flex: 0 0 clamp(240px, 80vw, 280px); 
+      flex: 0 0 clamp(220px, 85vw, 280px); 
     }
 
     .resume-pdf-container embed {
-      height: 85vh;
+      height: 80vh;
+    }
+
+    /* 所有文字统一缩小 */
+    .featured-title {
+      font-size: 18px;
+    }
+    .featured-title-cn {
+      font-size: 14px;
+    }
+    .featured-subtitle {
+      font-size: 11px;
+    }
+    .carousel-title-text {
+      font-size: 13px;
+    }
+    .carousel-title-cn-text {
+      font-size: 11px;
+    }
+    .carousel-subtitle {
+      font-size: 10px;
+    }
+    
+    /* Section 间距调整 */
+    section {
+      padding: 32px 16px;
     }
   }
 
+  /* ── 超大屏幕优化 ── */
   @media (min-width: 1920px) {
+    .hero-bg img {
+      object-fit: contain;
+    }
+  }
+
+  /* ── 横屏手机优化 ── */
+  @media (max-width: 900px) and (orientation: landscape) {
+    .hero {
+      height: 100vh;
+      min-height: unset;
+    }
     .hero-bg img {
       object-fit: contain;
     }
@@ -1190,7 +1314,7 @@
       <span class="section-label-cn">深度案例</span>
     </div>
 
-    <!-- 心言机器人 - Featured Project (带官网按钮在卡片上) -->
+    <!-- 心言机器人 - Featured Project -->
     <div class="featured-project fade-up">
       <div class="featured-card" onclick="openDetail('xyrobot')">
         <img class="featured-cover" src="thumb-xyrobot.png" alt="心言陪伴机器人">
@@ -1252,7 +1376,7 @@
             </div>
           </a>
 
-          <!-- Raychel (带Kickstarter按钮) -->
+          <!-- Raychel -->
           <div class="carousel-card" style="cursor: default;">
             <img class="carousel-cover" src="thumb-raychel.png" alt="Raychel" onclick="openDetail('raychel');" style="cursor: pointer;">
             <span class="carousel-arrow" onclick="openDetail('raychel');" style="cursor: pointer;">↗</span>
@@ -1266,7 +1390,6 @@
               <p class="carousel-title-cn-text">AI 情感闹钟</p>
               <p class="carousel-subtitle">Kickstarter 众筹项目</p>
               
-              <!-- Kickstarter按钮 -->
               <div class="carousel-actions">
                 <a class="carousel-btn-link" href="https://www.kickstarter.com/projects/netverse/raychel-1st-ai-alarm-clock-built-for-sleep-emotion-and-you/?ref=4n1t6d&token=566f7e78" target="_blank" rel="noopener noreferrer">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1451,7 +1574,7 @@
   <span>haoshuyan@qq.com</span>
 </footer>
 
-<!-- ── RESUME MODAL (全屏PDF) ── -->
+<!-- ── RESUME MODAL ── -->
 <div class="resume-modal" id="resumeModal">
   <div class="resume-modal-header">
     <button class="resume-close" onclick="closeResume()">
@@ -1466,72 +1589,65 @@
   </div>
   <div class="resume-modal-content">
     <div class="resume-pdf-container">
-      <!-- 全屏PDF预览 -->
       <embed src="resume.pdf" type="application/pdf" />
     </div>
   </div>
 </div>
 
-<!-- ── DETAIL PAGES (带视频) ── -->
+<!-- ── DETAIL PAGES ── -->
 
-<!-- 心言机器人 (带视频) -->
+<!-- 心言机器人 -->
 <div class="detail-page" id="detail-xyrobot">
   <button class="detail-back-floating" onclick="closeDetail()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
     返回作品集
   </button>
   <div class="detail-content-scroll">
-    <!-- 视频位置 -->
     <div class="detail-video-container">
       <video controls autoplay muted>
         <source src="video-xyrobot.mp4" type="video/mp4">
         您的浏览器不支持视频播放。
       </video>
     </div>
-    <!-- 后续详情图 -->
     <img src="detail-xyrobot.png" alt="心言陪伴机器人">
   </div>
 </div>
 
-<!-- BMW (带视频) -->
+<!-- BMW -->
 <div class="detail-page" id="detail-bmw">
   <button class="detail-back-floating" onclick="closeDetail()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
     返回作品集
   </button>
   <div class="detail-content-scroll">
-    <!-- 视频位置 -->
     <div class="detail-video-container">
       <video controls autoplay muted>
         <source src="video-bmw.mp4" type="video/mp4">
         您的浏览器不支持视频播放。
       </video>
     </div>
-    <!-- 后续详情图 -->
     <img src="detail-bmw.png" alt="VAR X">
   </div>
 </div>
 
-<!-- Raychel (带MP4视频) -->
+<!-- Raychel -->
 <div class="detail-page" id="detail-raychel">
   <button class="detail-back-floating" onclick="closeDetail()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
     返回作品集
   </button>
   <div class="detail-content-scroll">
-    <!-- MP4视频 (请将你上传的视频命名为 video-raychel.mp4) -->
     <div class="detail-video-container">
       <video controls autoplay muted>
         <source src="video-raychel.mp4" type="video/mp4">
         您的浏览器不支持视频播放。
       </video>
     </div>
-    <!-- 后续详情图 -->
     <img src="detail-raychel.png" alt="Raychel">
   </div>
 </div>
 
-<!-- 其他详情页 (无视频) -->
+<!-- 其他详情页 -->
 <div class="detail-page" id="detail-barmer">
   <button class="detail-back-floating" onclick="closeDetail()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
@@ -1640,7 +1756,6 @@
     document.querySelectorAll('.detail-page.open').forEach(p => p.classList.remove('open'));
     document.body.style.overflow = '';
     
-    // 暂停所有视频
     document.querySelectorAll('.detail-page video').forEach(video => {
       video.pause();
       video.currentTime = 0;
