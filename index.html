@@ -1055,38 +1055,58 @@
 
   /* ── 🎯 手机端优化 ── */
   @media (max-width: 900px) {
-    /* 导航栏垂直排列 */
+    /* 🔥 导航栏保持一行显示 */
     nav { 
-      flex-direction: column;
-      gap: 10px;
-      padding: 10px 16px;
+      flex-direction: row;
+      padding: 8px 12px;
+      gap: 8px;
     }
+    
+    /* Logo 缩小 */
+    .nav-logo {
+      flex-shrink: 0;
+    }
+    .nav-logo-en {
+      font-size: 12px;
+    }
+    .nav-logo-cn {
+      font-size: 9px;
+    }
+    
+    /* 导航链接居中 */
     .nav-center {
       position: static;
       transform: none;
-    }
-    .nav-links { 
-      flex-wrap: wrap;
+      flex: 1;
+      display: flex;
       justify-content: center;
-      gap: 6px;
     }
     
-    /* 按钮和图标缩小 */
+    /* 按钮大幅缩小 - 保证四个按钮一行 */
+    .nav-links { 
+      flex-wrap: nowrap;
+      gap: 3px;
+    }
     .nav-links a {
-      padding: 6px 12px;
-      font-size: 11px;
+      padding: 5px 8px;
+      font-size: 9px;
     }
     .nav-link-en, .nav-link-cn {
-      font-size: 11px;
+      font-size: 9px;
+    }
+    .nav-link-separator {
+      display: none; /* 隐藏分隔符节省空间 */
     }
     
-    /* Hero 保持比例 */
+    /* 🔥 Hero 背景图适配 - 根据比例缩小 */
     .hero { 
-      height: 70vh;
-      min-height: 500px;
+      height: 100vh;
+      min-height: unset;
     }
     .hero-bg img {
-      object-fit: cover;
+      object-fit: contain; /* 保持完整显示，按比例缩小 */
+      width: 100%;
+      height: 100%;
     }
     
     /* About Header 垂直排列 */
@@ -1194,13 +1214,26 @@
     }
   }
 
+  /* ── 超小屏手机特殊优化 ── */
+  @media (max-width: 400px) {
+    /* 进一步缩小按钮 */
+    .nav-links a {
+      padding: 4px 6px;
+      font-size: 8px;
+    }
+    .nav-link-en, .nav-link-cn {
+      font-size: 8px;
+    }
+    .nav-logo-en {
+      font-size: 11px;
+    }
+    .nav-logo-cn {
+      font-size: 8px;
+    }
+  }
+
   /* ── 小屏手机特殊优化 ── */
   @media (max-width: 600px) {
-    .hero { 
-      height: 60vh;
-      min-height: 400px;
-    }
-    
     .carousel-card { 
       flex: 0 0 clamp(220px, 85vw, 280px); 
     }
@@ -1249,7 +1282,7 @@
       min-height: unset;
     }
     .hero-bg img {
-      object-fit: contain;
+      object-fit: contain; /* 横屏时也保持完整显示 */
     }
   }
 </style>
