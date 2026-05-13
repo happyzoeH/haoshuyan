@@ -1098,15 +1098,32 @@
       display: none; /* 隐藏分隔符节省空间 */
     }
     
-    /* 🔥 Hero 背景图适配 - 根据比例缩小 */
+    /* 🔥 Hero 紧贴顶部 - 关键修改 */
     .hero { 
-      height: 100vh;
+      height: auto;  /* 改为自动高度 */
       min-height: unset;
+      padding-top: 56px;  /* 导航栏高度 */
+      display: block;  /* 改为块级显示 */
     }
-    .hero-bg img {
-      object-fit: contain; /* 保持完整显示，按比例缩小 */
+    
+    .hero-bg {
+      position: relative;  /* 改为相对定位 */
       width: 100%;
-      height: 100%;
+      height: auto;  /* 自动高度 */
+    }
+    
+    .hero-bg img {
+      position: relative;  /* 改为相对定位 */
+      width: 100%;
+      height: auto;  /* 自动高度 */
+      object-fit: contain;  /* 保持比例 */
+      object-position: top center;  /* 顶部对齐 */
+      display: block;
+    }
+    
+    /* 调整 Works 区域间距 */
+    #works {
+      padding-top: clamp(24px, 4vw, 40px);  /* 减少顶部间距 */
     }
     
     /* About Header 垂直排列 */
@@ -1230,6 +1247,10 @@
     .nav-logo-cn {
       font-size: 8px;
     }
+    
+    .hero {
+      padding-top: 50px;  /* 更小的导航栏高度 */
+    }
   }
 
   /* ── 小屏手机特殊优化 ── */
@@ -1261,11 +1282,6 @@
     .carousel-subtitle {
       font-size: 10px;
     }
-    
-    /* Section 间距调整 */
-    section {
-      padding: 32px 16px;
-    }
   }
 
   /* ── 超大屏幕优化 ── */
@@ -1278,11 +1294,11 @@
   /* ── 横屏手机优化 ── */
   @media (max-width: 900px) and (orientation: landscape) {
     .hero {
-      height: 100vh;
-      min-height: unset;
+      height: auto;
+      padding-top: 50px;
     }
     .hero-bg img {
-      object-fit: contain; /* 横屏时也保持完整显示 */
+      object-fit: contain;
     }
   }
 </style>
