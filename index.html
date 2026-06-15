@@ -4,10 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 <title>郝书言 · Hao Shuyan — UX Designer</title>
+
+<!-- 🚀 性能优化：预连接字体 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<!-- 🚀 性能优化：预加载关键图片 -->
+<link rel="preload" as="image" href="hero-bg.png">
+<link rel="preload" as="image" href="thumb-xyrobot.png">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -215,6 +220,11 @@
     display: block;
   }
 
+  /* 🚀 图片懒加载占位符 */
+  img[loading="lazy"] {
+    background: var(--glass);
+  }
+
   /* ── SECTION ── */
   section {
     position: relative; 
@@ -322,12 +332,6 @@
     border: 1px solid var(--tag-border);
     border-radius: 100px;
     padding: clamp(3px, 0.3vw, 4px) clamp(8px, 1vw, 12px);
-  }
-  .featured-year {
-    font-size: clamp(10px, 1vw, 12px); 
-    color: var(--text-dimmer); 
-    margin-left: auto;
-    font-weight: 300;
   }
   .featured-title {
     font-family: var(--font-heading);
@@ -568,12 +572,6 @@
     border: 1px solid var(--tag-border);
     border-radius: 100px;
     padding: clamp(2px, 0.3vw, 3px) clamp(7px, 0.8vw, 10px);
-  }
-  .carousel-year {
-    font-size: clamp(9px, 0.9vw, 11px); 
-    color: var(--text-dimmer); 
-    margin-left: auto;
-    font-weight: 300;
   }
   .carousel-title-text {
     font-family: var(--font-heading);
@@ -1055,14 +1053,12 @@
 
   /* ── 🎯 手机端优化 ── */
   @media (max-width: 900px) {
-    /* 🔥 导航栏保持一行显示 */
     nav { 
       flex-direction: row;
       padding: 8px 12px;
       gap: 8px;
     }
     
-    /* Logo 缩小 */
     .nav-logo {
       flex-shrink: 0;
     }
@@ -1073,7 +1069,6 @@
       font-size: 9px;
     }
     
-    /* 导航链接居中 */
     .nav-center {
       position: static;
       transform: none;
@@ -1082,7 +1077,6 @@
       justify-content: center;
     }
     
-    /* 按钮大幅缩小 - 保证四个按钮一行 */
     .nav-links { 
       flex-wrap: nowrap;
       gap: 3px;
@@ -1095,38 +1089,35 @@
       font-size: 9px;
     }
     .nav-link-separator {
-      display: none; /* 隐藏分隔符节省空间 */
+      display: none;
     }
     
-    /* 🔥 Hero 紧贴顶部 - 关键修改 */
     .hero { 
-      height: auto;  /* 改为自动高度 */
+      height: auto;
       min-height: unset;
-      padding-top: 56px;  /* 导航栏高度 */
-      display: block;  /* 改为块级显示 */
-    }
-    
-    .hero-bg {
-      position: relative;  /* 改为相对定位 */
-      width: 100%;
-      height: auto;  /* 自动高度 */
-    }
-    
-    .hero-bg img {
-      position: relative;  /* 改为相对定位 */
-      width: 100%;
-      height: auto;  /* 自动高度 */
-      object-fit: contain;  /* 保持比例 */
-      object-position: top center;  /* 顶部对齐 */
+      padding-top: 56px;
       display: block;
     }
     
-    /* 调整 Works 区域间距 */
-    #works {
-      padding-top: clamp(24px, 4vw, 40px);  /* 减少顶部间距 */
+    .hero-bg {
+      position: relative;
+      width: 100%;
+      height: auto;
     }
     
-    /* About Header 垂直排列 */
+    .hero-bg img {
+      position: relative;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      object-position: top center;
+      display: block;
+    }
+    
+    #works {
+      padding-top: clamp(24px, 4vw, 40px);
+    }
+    
     .about-header {
       flex-direction: column;
       align-items: flex-start;
@@ -1137,7 +1128,6 @@
       padding: 8px 16px;
     }
     
-    /* Carousel 卡片宽度调整 */
     .carousel-card { 
       flex: 0 0 clamp(240px, 75vw, 300px); 
     }
@@ -1145,7 +1135,6 @@
       height: clamp(160px, 45vw, 200px);
     }
     
-    /* Featured 卡片按钮调整 */
     .featured-btn {
       font-size: 12px;
       padding: 8px 16px;
@@ -1155,7 +1144,6 @@
       height: 12px;
     }
     
-    /* Carousel 按钮调整 */
     .carousel-btn-link {
       font-size: 11px;
       padding: 6px 12px;
@@ -1165,14 +1153,12 @@
       height: 10px;
     }
     
-    /* Footer 垂直排列 */
     footer { 
       flex-direction: column; 
       text-align: center;
       font-size: 10px;
     }
 
-    /* Resume Modal 头部调整 */
     .resume-modal-header {
       flex-wrap: wrap;
       gap: 10px;
@@ -1189,7 +1175,6 @@
       padding: 6px 12px;
     }
 
-    /* Detail 返回按钮 */
     .detail-back-floating {
       top: 10px;
       left: 10px;
@@ -1201,14 +1186,12 @@
       height: 12px;
     }
 
-    /* 轮播控制按钮 */
     .carousel-btn {
       width: 32px;
       height: 32px;
       font-size: 12px;
     }
 
-    /* 箭头图标 */
     .featured-arrow {
       width: 28px;
       height: 28px;
@@ -1224,16 +1207,13 @@
       right: 10px;
     }
 
-    /* 标签缩小 */
     .featured-tag, .carousel-tag {
       font-size: 8px;
       padding: 2px 7px;
     }
   }
 
-  /* ── 超小屏手机特殊优化 ── */
   @media (max-width: 400px) {
-    /* 进一步缩小按钮 */
     .nav-links a {
       padding: 4px 6px;
       font-size: 8px;
@@ -1249,11 +1229,10 @@
     }
     
     .hero {
-      padding-top: 50px;  /* 更小的导航栏高度 */
+      padding-top: 50px;
     }
   }
 
-  /* ── 小屏手机特殊优化 ── */
   @media (max-width: 600px) {
     .carousel-card { 
       flex: 0 0 clamp(220px, 85vw, 280px); 
@@ -1263,7 +1242,6 @@
       height: 80vh;
     }
 
-    /* 所有文字统一缩小 */
     .featured-title {
       font-size: 18px;
     }
@@ -1284,14 +1262,12 @@
     }
   }
 
-  /* ── 超大屏幕优化 ── */
   @media (min-width: 1920px) {
     .hero-bg img {
       object-fit: contain;
     }
   }
 
-  /* ── 横屏手机优化 ── */
   @media (max-width: 900px) and (orientation: landscape) {
     .hero {
       height: auto;
@@ -1305,7 +1281,6 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav>
   <a class="nav-logo" href="#">
     <span class="nav-logo-en">Hao Shuyan</span>
@@ -1348,14 +1323,12 @@
   <div style="width: clamp(60px, 10vw, 120px);"></div>
 </nav>
 
-<!-- ── HERO ── -->
 <div class="hero">
   <div class="hero-bg">
     <img src="hero-bg.png" alt="Portfolio Background">
   </div>
 </div>
 
-<!-- ── WORKS ── -->
 <section id="works">
   <div class="section-inner">
     <div class="section-label">
@@ -1363,23 +1336,20 @@
       <span class="section-label-cn">深度案例</span>
     </div>
 
-    <!-- 心言机器人 - Featured Project -->
     <div class="featured-project fade-up">
       <div class="featured-card" onclick="openDetail('xyrobot')">
-        <img class="featured-cover" src="thumb-xyrobot.png" alt="心言陪伴机器人">
+        <img class="featured-cover" src="thumb-xyrobot.png" alt="心言陪伴机器人" loading="lazy">
         <span class="featured-arrow">↗</span>
         <div class="featured-body">
           <div class="featured-meta">
             <span class="featured-tag">Embodied AI · 具身智能</span>
             <span class="featured-tag">Multimodal · 多模态</span>
             <span class="featured-tag">0→1</span>
-            <span class="featured-year">2024 – Present</span>
           </div>
           <h2 class="featured-title">Xinyan Companion Robot</h2>
           <p class="featured-title-cn">心言陪伴机器人 · 全链路交互体系</p>
           <p class="featured-subtitle">愈心科技 · 国内首款登上春晚的家庭陪伴机器人</p>
           
-          <!-- 官网按钮 -->
           <div class="featured-actions" onclick="event.stopPropagation();">
             <a class="featured-btn" href="https://www.xyrobot.com/" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1393,7 +1363,6 @@
       </div>
     </div>
 
-    <!-- Other Projects - Carousel -->
     <div class="projects-carousel-section fade-up delay-1">
       <div class="carousel-header">
         <div class="carousel-title">
@@ -1409,15 +1378,13 @@
       <div class="projects-carousel">
         <div class="carousel-track" id="carouselTrack">
           
-          <!-- 1️⃣ VAR X -->
           <a class="carousel-card" href="#" onclick="openDetail('bmw'); return false;">
-            <img class="carousel-cover" src="thumb-bmw.png" alt="VAR X">
+            <img class="carousel-cover" src="thumb-bmw.png" alt="VAR X" loading="lazy">
             <span class="carousel-arrow">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">VR / XR</span>
                 <span class="carousel-tag">Metaverse</span>
-                <span class="carousel-year">2021</span>
               </div>
               <h3 class="carousel-title-text">VAR X</h3>
               <p class="carousel-title-cn-text">元宇宙移动交互</p>
@@ -1425,15 +1392,13 @@
             </div>
           </a>
 
-          <!-- 2️⃣ VR 沉浸式冥想 -->
           <a class="carousel-card" href="#" onclick="openDetail('meditation'); return false;">
-            <img class="carousel-cover" src="thumb-meditation.png" alt="VR沉浸式冥想">
+            <img class="carousel-cover" src="thumb-meditation.png" alt="VR沉浸式冥想" loading="lazy">
             <span class="carousel-arrow">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">VR / XR</span>
                 <span class="carousel-tag">Wellness · 健康</span>
-                <span class="carousel-year">2021</span>
               </div>
               <h3 class="carousel-title-text">VR Immersive Meditation</h3>
               <p class="carousel-title-cn-text">VR 沉浸式冥想</p>
@@ -1441,15 +1406,13 @@
             </div>
           </a>
 
-          <!-- 3️⃣ Raychel -->
           <div class="carousel-card" style="cursor: default;">
-            <img class="carousel-cover" src="thumb-raychel.png" alt="Raychel" onclick="openDetail('raychel');" style="cursor: pointer;">
+            <img class="carousel-cover" src="thumb-raychel.png" alt="Raychel" onclick="openDetail('raychel');" style="cursor: pointer;" loading="lazy">
             <span class="carousel-arrow" onclick="openDetail('raychel');" style="cursor: pointer;">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">Smart Hardware</span>
                 <span class="carousel-tag">HCI</span>
-                <span class="carousel-year">2023</span>
               </div>
               <h3 class="carousel-title-text">Raychel</h3>
               <p class="carousel-title-cn-text">AI 情感闹钟</p>
@@ -1467,15 +1430,13 @@
             </div>
           </div>
 
-          <!-- 4️⃣ Callidus X -->
           <a class="carousel-card" href="#" onclick="openDetail('barmer'); return false;">
-            <img class="carousel-cover" src="thumb-barmer.png" alt="Callidus X">
+            <img class="carousel-cover" src="thumb-barmer.png" alt="Callidus X" loading="lazy">
             <span class="carousel-arrow">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">Healthcare AI</span>
                 <span class="carousel-tag">UX</span>
-                <span class="carousel-year">2022</span>
               </div>
               <h3 class="carousel-title-text">Callidus X</h3>
               <p class="carousel-title-cn-text">陪伴医疗 AI</p>
@@ -1483,14 +1444,12 @@
             </div>
           </a>
 
-          <!-- 5️⃣ Inclusive Design -->
           <a class="carousel-card" href="#" onclick="openDetail('inclusive'); return false;">
-            <img class="carousel-cover" src="thumb-inclusive.png" alt="包容性设计">
+            <img class="carousel-cover" src="thumb-inclusive.png" alt="包容性设计" loading="lazy">
             <span class="carousel-arrow">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">Inclusive Design</span>
-                <span class="carousel-year">2022</span>
               </div>
               <h3 class="carousel-title-text">Inclusive Design Guide</h3>
               <p class="carousel-title-cn-text">包容性设计指南</p>
@@ -1498,15 +1457,13 @@
             </div>
           </a>
 
-          <!-- 6️⃣ Magic Wand -->
           <a class="carousel-card" href="#" onclick="openDetail('blind'); return false;">
-            <img class="carousel-cover" src="thumb-blind.png" alt="魔杖">
+            <img class="carousel-cover" src="thumb-blind.png" alt="魔杖" loading="lazy">
             <span class="carousel-arrow">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">Accessibility</span>
                 <span class="carousel-tag">Multimodal</span>
-                <span class="carousel-year">2020</span>
               </div>
               <h3 class="carousel-title-text">Magic Wand</h3>
               <p class="carousel-title-cn-text">魔杖 · 视障烹饪辅助</p>
@@ -1514,15 +1471,13 @@
             </div>
           </a>
 
-          <!-- 7️⃣ NetEase Cloud -->
           <a class="carousel-card" href="#" onclick="openDetail('cloud'); return false;">
-            <img class="carousel-cover" src="thumb-cloud.png" alt="网易云音乐">
+            <img class="carousel-cover" src="thumb-cloud.png" alt="网易云音乐" loading="lazy">
             <span class="carousel-arrow">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">Strategic Design</span>
                 <span class="carousel-tag">UX</span>
-                <span class="carousel-year">2020</span>
               </div>
               <h3 class="carousel-title-text">NetEase Cloud Music</h3>
               <p class="carousel-title-cn-text">网易云音乐战略转型</p>
@@ -1530,15 +1485,13 @@
             </div>
           </a>
 
-          <!-- 8️⃣ Postpartum Recovery -->
           <a class="carousel-card" href="#" onclick="openDetail('women'); return false;">
-            <img class="carousel-cover" src="thumb-women.png" alt="产后康复">
+            <img class="carousel-cover" src="thumb-women.png" alt="产后康复" loading="lazy">
             <span class="carousel-arrow">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">Wearables</span>
                 <span class="carousel-tag">Product Design</span>
-                <span class="carousel-year">2020</span>
               </div>
               <h3 class="carousel-title-text">Postpartum Recovery</h3>
               <p class="carousel-title-cn-text">产后漏尿智能康复衣</p>
@@ -1546,15 +1499,13 @@
             </div>
           </a>
 
-          <!-- 9️⃣ Undergraduate Portfolio -->
           <a class="carousel-card" href="#" onclick="openDetail('others'); return false;">
-            <img class="carousel-cover" src="thumb-others.png" alt="本科作品">
+            <img class="carousel-cover" src="thumb-others.png" alt="本科作品" loading="lazy">
             <span class="carousel-arrow">↗</span>
             <div class="carousel-body">
               <div class="carousel-meta">
                 <span class="carousel-tag">Product Design</span>
                 <span class="carousel-tag">Furniture</span>
-                <span class="carousel-year">2016–2019</span>
               </div>
               <h3 class="carousel-title-text">Undergraduate Portfolio</h3>
               <p class="carousel-title-cn-text">本科代表作品集</p>
@@ -1568,14 +1519,12 @@
   </div>
 </section>
 
-<!-- ── DECORATION 2 ── -->
 <div class="decoration-section fade-up">
   <div class="decoration-container">
-    <img src="decoration2.png" alt="装饰图2">
+    <img src="decoration2.png" alt="装饰图2" loading="lazy">
   </div>
 </div>
 
-<!-- ── ABOUT ── -->
 <section id="about" class="about-section">
   <div class="section-inner">
     <div class="about-header fade-up">
@@ -1591,12 +1540,11 @@
     </div>
     
     <div class="about-image-container fade-up delay-1">
-      <img src="about-me.png" alt="关于我">
+      <img src="about-me.png" alt="关于我" loading="lazy">
     </div>
   </div>
 </section>
 
-<!-- ── SKILLS ── -->
 <section id="skills" class="skills-section">
   <div class="section-inner">
     <div class="skills-header fade-up">
@@ -1605,25 +1553,22 @@
     </div>
     
     <div class="skills-image-container fade-up delay-1">
-      <img src="skills.png" alt="技能与工具">
+      <img src="skills.png" alt="技能与工具" loading="lazy">
     </div>
   </div>
 </section>
 
-<!-- ── DECORATION ── -->
 <div class="decoration-section fade-up">
   <div class="decoration-container">
-    <img src="decoration.png" alt="装饰图">
+    <img src="decoration.png" alt="装饰图" loading="lazy">
   </div>
 </div>
 
-<!-- ── FOOTER ── -->
 <footer>
   <span>© 2025 Hao Shuyan · 郝书言</span>
   <span>haoshuyan@qq.com</span>
 </footer>
 
-<!-- ── RESUME MODAL ── -->
 <div class="resume-modal" id="resumeModal">
   <div class="resume-modal-header">
     <button class="resume-close" onclick="closeResume()">
@@ -1645,7 +1590,6 @@
 
 <!-- ── DETAIL PAGES ── -->
 
-<!-- 心言机器人 - 图片在前,视频在后 -->
 <div class="detail-page" id="detail-xyrobot">
   <button class="detail-back-floating" onclick="closeDetail()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
@@ -1654,7 +1598,7 @@
   <div class="detail-content-scroll">
     <img src="detail-xyrobot.png" alt="心言陪伴机器人">
     <div class="detail-video-container">
-      <video controls>
+      <video controls preload="metadata">
         <source src="video-xyrobot.mp4" type="video/mp4">
         您的浏览器不支持视频播放。
       </video>
@@ -1662,7 +1606,6 @@
   </div>
 </div>
 
-<!-- BMW - 图片在前,视频在后 -->
 <div class="detail-page" id="detail-bmw">
   <button class="detail-back-floating" onclick="closeDetail()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
@@ -1671,7 +1614,7 @@
   <div class="detail-content-scroll">
     <img src="detail-bmw.png" alt="VAR X">
     <div class="detail-video-container">
-      <video controls>
+      <video controls preload="metadata">
         <source src="video-bmw.mp4" type="video/mp4">
         您的浏览器不支持视频播放。
       </video>
@@ -1679,7 +1622,6 @@
   </div>
 </div>
 
-<!-- Raychel - 图片在前,视频在后 -->
 <div class="detail-page" id="detail-raychel">
   <button class="detail-back-floating" onclick="closeDetail()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
@@ -1688,7 +1630,7 @@
   <div class="detail-content-scroll">
     <img src="detail-raychel.png" alt="Raychel">
     <div class="detail-video-container">
-      <video controls>
+      <video controls preload="metadata">
         <source src="video-raychel.mp4" type="video/mp4">
         您的浏览器不支持视频播放。
       </video>
@@ -1696,7 +1638,6 @@
   </div>
 </div>
 
-<!-- 其他详情页 -->
 <div class="detail-page" id="detail-barmer">
   <button class="detail-back-floating" onclick="closeDetail()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
@@ -1768,7 +1709,6 @@
 </div>
 
 <script>
-  // ── scroll animations ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1780,7 +1720,6 @@
 
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  // ── carousel scroll ──
   function scrollCarousel(direction) {
     const track = document.getElementById('carouselTrack');
     const cardWidth = track.querySelector('.carousel-card').offsetWidth;
@@ -1792,7 +1731,6 @@
     });
   }
 
-  // ── detail page ──
   function openDetail(id) {
     const page = document.getElementById('detail-' + id);
     if (!page) return;
@@ -1805,14 +1743,12 @@
     document.querySelectorAll('.detail-page.open').forEach(p => p.classList.remove('open'));
     document.body.style.overflow = '';
     
-    // 停止所有视频播放
     document.querySelectorAll('.detail-page video').forEach(video => {
       video.pause();
       video.currentTime = 0;
     });
   }
 
-  // ── resume modal ──
   function openResume() {
     const modal = document.getElementById('resumeModal');
     modal.classList.add('open');
@@ -1826,7 +1762,6 @@
     document.body.style.overflow = '';
   }
 
-  // ESC key to close
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       closeDetail();
