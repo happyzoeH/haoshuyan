@@ -670,11 +670,14 @@
 
   /* ── ABOUT ── */
   .about-section {
-    padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 48px);
+    padding: 0;
+    margin: 0;
   }
   
   .about-header {
-    margin-bottom: clamp(24px, 3.5vw, 48px);
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 48px) clamp(24px, 3vw, 40px);
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -755,10 +758,16 @@
     color: rgba(0,0,0,0.7);
   }
   
+  /* ✅ 修改：让 about-me 图片占满整个屏幕宽度 */
   .about-image-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
   }
   
   .about-image-container img {
@@ -769,11 +778,14 @@
 
   /* ── SKILLS ── */
   .skills-section {
-    padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 48px);
+    padding: 0;
+    margin: 0;
   }
   
   .skills-header {
-    margin-bottom: clamp(24px, 3.5vw, 48px);
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 48px) clamp(24px, 3vw, 40px);
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
   .skills-title-en {
@@ -791,10 +803,16 @@
     color: var(--text-dim);
   }
   
+  /* ✅ 修改：让 skills 图片占满整个屏幕宽度 */
   .skills-image-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
   }
   
   .skills-image-container img {
@@ -807,8 +825,13 @@
   .decoration-section {
     position: relative;
     z-index: 1;
-    width: 100%;
-    padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 48px);
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -816,8 +839,8 @@
   
   .decoration-container {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
   }
   
   .decoration-container img {
@@ -1526,35 +1549,31 @@
 </div>
 
 <section id="about" class="about-section">
-  <div class="section-inner">
-    <div class="about-header fade-up">
-      <div class="about-title-group">
-        <h2 class="about-title-en">ABOUT ME</h2>
-        <p class="about-title-cn">关于我</p>
-      </div>
-      <a class="about-resume-btn" onclick="openResume(); return false;">
-        <span class="about-resume-btn-en">View Resume</span>
-        <span class="about-resume-btn-separator">·</span>
-        <span class="about-resume-btn-cn">查看简历</span>
-      </a>
+  <div class="about-header fade-up">
+    <div class="about-title-group">
+      <h2 class="about-title-en">ABOUT ME</h2>
+      <p class="about-title-cn">关于我</p>
     </div>
-    
-    <div class="about-image-container fade-up delay-1">
-      <img src="about-me.png" alt="关于我" loading="lazy">
-    </div>
+    <a class="about-resume-btn" onclick="openResume(); return false;">
+      <span class="about-resume-btn-en">View Resume</span>
+      <span class="about-resume-btn-separator">·</span>
+      <span class="about-resume-btn-cn">查看简历</span>
+    </a>
+  </div>
+  
+  <div class="about-image-container fade-up delay-1">
+    <img src="about-me.png" alt="关于我" loading="lazy">
   </div>
 </section>
 
 <section id="skills" class="skills-section">
-  <div class="section-inner">
-    <div class="skills-header fade-up">
-      <h2 class="skills-title-en">SKILLS & TOOLS</h2>
-      <p class="skills-title-cn">技能与工具</p>
-    </div>
-    
-    <div class="skills-image-container fade-up delay-1">
-      <img src="skills.png" alt="技能与工具" loading="lazy">
-    </div>
+  <div class="skills-header fade-up">
+    <h2 class="skills-title-en">SKILLS & TOOLS</h2>
+    <p class="skills-title-cn">技能与工具</p>
+  </div>
+  
+  <div class="skills-image-container fade-up delay-1">
+    <img src="skills.png" alt="技能与工具" loading="lazy">
   </div>
 </section>
 
