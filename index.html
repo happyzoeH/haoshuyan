@@ -8,7 +8,7 @@
 <meta name="keywords" content="Hao Shuyan, UX Designer, Portfolio, Embodied AI, VR, XR, Healthcare AI, Inclusive Design">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Geist+Pixel&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════
    PORTFOLIO - STANDALONE HTML
@@ -123,41 +123,44 @@ body {
   transform: translateY(-20px);
   pointer-events: none;
 }
-.loading-title {
-  font-family: var(--font-heading);
-  font-size: clamp(24px, 5vw, 48px);
-  font-weight: 600;
+.loading-type {
+  font-family: 'Geist Pixel', var(--font-heading), monospace;
+  font-size: clamp(22px, 4.2vw, 40px);
+  font-weight: 400;
   color: var(--text-primary);
-  letter-spacing: 0.08em;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s 0.1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
-.loading-subtitle {
-  font-family: var(--font-body);
-  font-size: clamp(12px, 2vw, 16px);
-  color: rgba(232,234,240,0.4);
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  opacity: 0;
-  animation: fadeIn 0.5s 0.4s forwards;
+.loading-type-text {
+  display: inline-block;
 }
-.loading-line {
-  height: 1px;
-  background: var(--accent);
-  margin-top: 8px;
-  width: 0;
-  animation: expandLine 0.8s 0.6s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+.loading-type .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: keyPop 0.18s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.loading-cursor {
+  display: inline-block;
+  width: 0.5em;
+  margin-left: 2px;
+  color: var(--accent);
+  animation: cursorBlink 0.9s steps(1) infinite;
+}
+.loading-cursor.done {
+  animation: cursorBlink 0.9s steps(1) infinite;
 }
 
-@keyframes fadeInUp {
-  to { opacity: 1; transform: translateY(0); }
+@keyframes keyPop {
+  0% { opacity: 0; transform: translateY(6px) scale(0.85); }
+  60% { opacity: 1; transform: translateY(-1px) scale(1.05); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-@keyframes expandLine {
-  to { width: clamp(40px, 8vw, 80px); }
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 /* ── Navigation ── */
@@ -1084,9 +1087,7 @@ footer a:hover { color: var(--accent); }
 
 <!-- ═══════════ Loading Screen ═══════════ -->
 <div class="loading-screen" id="loadingScreen">
-  <div class="loading-title">Hao Shuyan</div>
-  <div class="loading-subtitle">郝书言 · UX Designer</div>
-  <div class="loading-line"></div>
+  <div class="loading-type"><span class="loading-type-text" id="loadingTypeText"></span><span class="loading-cursor" id="loadingCursor">|</span></div>
 </div>
 
 <!-- ═══════════ Cursor Glow ═══════════ -->
@@ -1508,19 +1509,46 @@ const projectDetails = {
   others: { image: 'detail-others.png' },
 };
 
-// ── Loading Screen ──
+// ── Loading Screen: typewriter intro ──
 const loadingScreen = document.getElementById('loadingScreen');
 const nav = document.getElementById('nav');
 const noiseOverlay = document.getElementById('noiseOverlay');
+const loadingTypeText = document.getElementById('loadingTypeText');
+const loadingCursor = document.getElementById('loadingCursor');
 
-setTimeout(() => {
+const introText = "Let's make things.";
+const TYPE_START_DELAY = 300;   // pause before typing begins
+const TYPE_CHAR_DELAY = 85;     // ms between keystrokes
+const HOLD_AFTER_TYPE = 700;    // pause after the last character before fading out
+const FADE_DURATION = 500;      // matches .loading-screen transition duration in CSS
+
+function typeIntro() {
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < introText.length) {
+      const span = document.createElement('span');
+      span.className = 'char';
+      const ch = introText[i];
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      loadingTypeText.appendChild(span);
+      i++;
+    } else {
+      clearInterval(interval);
+      setTimeout(exitLoadingScreen, HOLD_AFTER_TYPE);
+    }
+  }, TYPE_CHAR_DELAY);
+}
+
+function exitLoadingScreen() {
   loadingScreen.classList.add('exit');
   setTimeout(() => {
     loadingScreen.style.display = 'none';
     nav.style.display = 'flex';
     noiseOverlay.style.display = 'block';
-  }, 500);
-}, 2300);
+  }, FADE_DURATION);
+}
+
+setTimeout(typeIntro, TYPE_START_DELAY);
 
 // ── Cursor Glow ──
 const cursorGlow = document.getElementById('cursorGlow');
