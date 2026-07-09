@@ -1688,28 +1688,39 @@ carouselTrack.addEventListener('mouseenter', () => { carouselPaused = true; });
 carouselTrack.addEventListener('mouseleave', () => { carouselPaused = false; });
 
 // ── Carousel: Drag to scroll ──
+let isPointerDown = false;
 let isDragging = false;
 let dragStartX = 0;
 let dragScrollLeft = 0;
+const DRAG_THRESHOLD = 6; // px of movement before we treat this as a real drag
 
 carouselTrack.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  carouselTrack.classList.add('dragging');
+  isPointerDown = true;
+  isDragging = false;
   dragStartX = e.pageX - carouselTrack.offsetLeft;
   dragScrollLeft = carouselTrack.scrollLeft;
 });
 carouselTrack.addEventListener('mouseleave', () => {
+  isPointerDown = false;
   isDragging = false;
   carouselTrack.classList.remove('dragging');
 });
 carouselTrack.addEventListener('mouseup', () => {
-  isDragging = false;
-  carouselTrack.classList.remove('dragging');
+  isPointerDown = false;
+  if (isDragging) {
+    setTimeout(() => { isDragging = false; carouselTrack.classList.remove('dragging'); }, 0);
+  }
 });
 carouselTrack.addEventListener('mousemove', (e) => {
+  if (!isPointerDown) return;
+  const x = e.pageX - carouselTrack.offsetLeft;
+  const distance = Math.abs(x - dragStartX);
+  if (!isDragging && distance > DRAG_THRESHOLD) {
+    isDragging = true;
+    carouselTrack.classList.add('dragging');
+  }
   if (!isDragging) return;
   e.preventDefault();
-  const x = e.pageX - carouselTrack.offsetLeft;
   const walk = (x - dragStartX) * 1.5;
   carouselTrack.scrollLeft = dragScrollLeft - walk;
 });
